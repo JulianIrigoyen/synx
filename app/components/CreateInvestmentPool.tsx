@@ -35,6 +35,7 @@ export const CreateInvestmentPoolButton: FC = () => {
     { value: "land", label: "Land (Agro Yield)" },
     { value: "realEstate", label: "Real Estate (Rent Yield)" },
     { value: "vehicles", label: "Vehicles (Freight/Transport Yields)" },
+    { value: "collectibles", label: "Collectibles (AppreciationYields)" },
     {
       value: "eventProduction",
       label: "Event Production (Ticket / Bar Yields)",
@@ -153,7 +154,7 @@ export const CreateInvestmentPoolButton: FC = () => {
             <Textarea
               name="description"
               value={"synX Tokens"}
-              onChange={(e) => setDescription(e.target.value)}
+              // onChange={(e) => setDescription(e.target.value)}
             />
           </Field>
         </FieldGroup>
