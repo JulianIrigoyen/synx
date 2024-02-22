@@ -91,6 +91,31 @@ describe("synx", () => {
     assert.equal(fetchedWhitelistEntry.pool.toString(), poolKey.toString());
   });
 
+  it("Transitions pool state by the pool master", async () => {
+    const [poolKey] = await anchor.web3.PublicKey.findProgramAddress(
+      [Buffer.from("POOL"), treasury.publicKey.toBuffer()],
+      program.programId
+    );
+
+    // Define the new state you want to transition to
+    const newState = 1; // OPEN
+
+    // Transition the pool state
+    await program.methods
+      .transitionPoolState(newState)
+      .accounts({
+        pool: poolKey,
+        poolMaster: poolMaster.publicKey,
+      })
+      .signers([poolMaster]) // Assuming poolMaster can sign transactions
+      .rpc();
+
+    // Fetch the pool account to verify state transition
+    const updatedPool = await program.account.pool.fetch(poolKey);
+    console.log(updatedPool);
+    assert.equal(updatedPool.stateFlags, 1, "Pool state should be WHITELISTED_ONLY");
+});
+
 });
 
   // it("Rejects an investment below minimum amount", async () => {
