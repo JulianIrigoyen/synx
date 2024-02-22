@@ -1,34 +1,34 @@
-Backdrop Build SynX v0
+# Backdrop Build SynX v0
 
-This is the first proof of concept for the Land Tokenization (SynX) project. Our goal is to reduce entry barriers for profitable investments and to generate wealth in a decentralized manner, creating opportunities and value that are now eaten by market inefficiencies. 
+This is the first proof of concept for the Land Tokenization (SynX) project. Our goal is to reduce entry barriers for
+profitable investments and to generate wealth in a decentralized manner, creating opportunities and value that are now
+eaten by market inefficiencies.
 
-MVP: A platform that allows Real World Asset (RWAs) owners to 'tokenize' assets and creates 
-a secure, fast, decentralized marketplace, reducing entry barriers for retail investors to profitable opportunities.
+MVP: A platform that allows Real World Asset (RWAs) owners to 'tokenize' assets and creates
+a secure, fast, decentralized marketplace.
 
 ## Solana Programs
 
 * Write custom programs in the ```/programs``` directory. Init with ```anchor init <name>```
     * Run ```anchor build``` and ```anchor deploy``` to delpoy to the configured environment
-        ! You can check current env using ```solana config get```
-
-
+    * You can check your current env using ```solana config get```
 
 ## Tests:
 
-* This is the most efficient way to interact with solana programs. 
+* This is the most efficient way to interact with solana programs.
     * TDD, TDD, TDD
 
 * ```anchor test``` -> check solana-test-validator status:
     - it needs to be on for delpoyment
-    - it needs to be off for tests to run (anchor test)
-* Make sure the following environment variables are available. 
-    -- export ANCHOR_PROVIDER_URL=http://127.0.0.1:8899
-    -- export ANCHOR_WALLET=~/.config/solana/id.json
+    - it needs to be off for tests to run (anchor test) or run in a different port
+* Make sure the following environment variables are available.
+  -- export ANCHOR_PROVIDER_URL=http://127.0.0.1:8899
+  -- export ANCHOR_WALLET=~/.config/solana/id.json
 
 ## UI
 
-
 ## Versions
+
 [cargo] edition = "2021"
 
 cargo --version
@@ -37,7 +37,7 @@ cargo 1.76.0 (c84b36747 2024-01-18)
 rustc --version
 rustc 1.76.0 (07dca489a 2024-02-04)
 
-anchor --version 
+anchor --version
 anchor-cli 0.29.0
 
 solana --version
