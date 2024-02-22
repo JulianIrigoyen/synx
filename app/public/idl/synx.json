@@ -1,0 +1,245 @@
+{
+    "version": "0.1.0",
+    "name": "synx",
+    "instructions": [
+      {
+        "name": "createPool",
+        "accounts": [
+          {
+            "name": "pool",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "poolMaster",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "treasury",
+            "isMut": false,
+            "isSigner": true
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "maxInvestment",
+            "type": "u64"
+          },
+          {
+            "name": "minInvestment",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "transitionPoolState",
+        "accounts": [
+          {
+            "name": "pool",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "poolMaster",
+            "isMut": false,
+            "isSigner": true
+          }
+        ],
+        "args": [
+          {
+            "name": "newState",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "whitelistInvestor",
+        "accounts": [
+          {
+            "name": "pool",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "poolMaster",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "whitelistEntry",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "investor",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "investor",
+            "type": "publicKey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      },
+      {
+        "name": "investInPool",
+        "accounts": [
+          {
+            "name": "pool",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "treasury",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "investor",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "whitelistEntry",
+            "isMut": true,
+            "isSigner": false,
+            "docs": [
+              "Optionally, include the whitelist entry account if in WHITELISTED_ONLY state"
+            ]
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    ],
+    "accounts": [
+      {
+        "name": "Pool",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "poolMaster",
+              "type": "publicKey"
+            },
+            {
+              "name": "treasury",
+              "type": "publicKey"
+            },
+            {
+              "name": "stateFlags",
+              "type": "u8"
+            },
+            {
+              "name": "poolConfig",
+              "type": {
+                "defined": "PoolConfig"
+              }
+            },
+            {
+              "name": "bump",
+              "type": "u8"
+            }
+          ]
+        }
+      },
+      {
+        "name": "WhitelistEntry",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "investor",
+              "type": "publicKey"
+            },
+            {
+              "name": "pool",
+              "type": "publicKey"
+            },
+            {
+              "name": "bump",
+              "type": "u8"
+            }
+          ]
+        }
+      }
+    ],
+    "types": [
+      {
+        "name": "PoolConfig",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "maxInvestment",
+              "type": "u64"
+            },
+            {
+              "name": "minInvestment",
+              "type": "u64"
+            }
+          ]
+        }
+      }
+    ],
+    "errors": [
+      {
+        "code": 6000,
+        "name": "UnauthorizedPoolMaster",
+        "msg": "The provided pool master is not authorized to perform this action."
+      },
+      {
+        "code": 6001,
+        "name": "PoolNotAcceptingInvestments",
+        "msg": "Pool is not currently accepting investments."
+      },
+      {
+        "code": 6002,
+        "name": "InvestmentAmountOutOfRange",
+        "msg": "Investment amount is out of the allowed range."
+      },
+      {
+        "code": 6003,
+        "name": "InvestorNotWhitelisted",
+        "msg": "The investor is not whitelisted for investment in this pool."
+      },
+      {
+        "code": 6004,
+        "name": "PoolAcceptingOnlyWhitelistedInvestors",
+        "msg": "The pool is only accepting investments from whitelisted investors."
+      }
+    ],
+    "metadata": {
+      "address": "GiWGrEfwScYrTXoTECQR2HbRyCwn5Vu6K1tTbCSXm4x2"
+    }
+  }

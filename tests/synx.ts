@@ -131,75 +131,75 @@ describe("synx", () => {
     );
   });
 
-  // it("Rejects a whitelisted investor during CLOSED state", async () => {
-  //   // Find the PDA for the pool
-  //   const [poolKey, poolBump] = await anchor.web3.PublicKey.findProgramAddress(
-  //     [Buffer.from("POOL"), treasury.publicKey.toBuffer()],
-  //     program.programId
-  //   );
+  it("Rejects a whitelisted investor during CLOSED state", async () => {
+    // Find the PDA for the pool
+    const [poolKey, poolBump] = await anchor.web3.PublicKey.findProgramAddress(
+      [Buffer.from("POOL"), treasury.publicKey.toBuffer()],
+      program.programId
+    );
   
-  //   // Create the pool
-  //   await program.methods
-  //     .createPool(new anchor.BN(10000), new anchor.BN(1000), poolBump)
-  //     .accounts({
-  //       pool: poolKey,
-  //       poolMaster: poolMaster.publicKey,
-  //       treasury: treasury.publicKey,
-  //       systemProgram: anchor.web3.SystemProgram.programId,
-  //     })
-  //     .signers([treasury])
-  //     .rpc();
+    // Create the pool
+    await program.methods
+      .createPool(new anchor.BN(10000), new anchor.BN(1000), poolBump)
+      .accounts({
+        pool: poolKey,
+        poolMaster: poolMaster.publicKey,
+        treasury: treasury.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([treasury])
+      .rpc();
   
-  //   // Transition the pool to CLOSED state
-  //   await program.methods
-  //     .transitionPoolState(2) // Make sure CLOSED is defined correctly
-  //     .accounts({
-  //       pool: poolKey,
-  //       poolMaster: poolMaster.publicKey,
-  //     })
-  //     .signers([poolMaster])
-  //     .rpc();
+    // Transition the pool to CLOSED state
+    await program.methods
+      .transitionPoolState(2) // Make sure CLOSED is defined correctly
+      .accounts({
+        pool: poolKey,
+        poolMaster: poolMaster.publicKey,
+      })
+      .signers([poolMaster])
+      .rpc();
   
-  //   // Whitelist an investor
-  //   const investor = anchor.web3.Keypair.generate();
-  //   const [whitelistEntryKey, whitelistEntryBump] = await anchor.web3.PublicKey.findProgramAddress(
-  //     [Buffer.from("WHITELIST"), poolKey.toBuffer(), investor.publicKey.toBuffer()],
-  //     program.programId
-  //   );
+    // Whitelist an investor
+    const investor = anchor.web3.Keypair.generate();
+    const [whitelistEntryKey, whitelistEntryBump] = await anchor.web3.PublicKey.findProgramAddress(
+      [Buffer.from("WHITELIST"), poolKey.toBuffer(), investor.publicKey.toBuffer()],
+      program.programId
+    );
   
-  //   // Whitelist the investor for the pool
-  //   await program.methods
-  //     .whitelistInvestor(investor.publicKey, whitelistEntryBump)
-  //     .accounts({
-  //       pool: poolKey,
-  //       poolMaster: poolMaster.publicKey,
-  //       whitelistEntry: whitelistEntryKey,
-  //       investor: investor.publicKey,
-  //       systemProgram: anchor.web3.SystemProgram.programId,
-  //     })
-  //     .signers([poolMaster])
-  //     .rpc();
+    // Whitelist the investor for the pool
+    await program.methods
+      .whitelistInvestor(investor.publicKey, whitelistEntryBump)
+      .accounts({
+        pool: poolKey,
+        poolMaster: poolMaster.publicKey,
+        whitelistEntry: whitelistEntryKey,
+        investor: investor.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .signers([poolMaster])
+      .rpc();
   
-  //   // Attempt to invest as the whitelisted investor
-  //   try {
-  //     await program.methods
-  //       .investInPool(new anchor.BN(500))
-  //       .accounts({
-  //         pool: poolKey,
-  //         treasury: treasury.publicKey,
-  //         investor: investor.publicKey,
-  //         whitelistEntry: whitelistEntryKey, // Include this if necessary for the logic
-  //         systemProgram: anchor.web3.SystemProgram.programId,
-  //       })
-  //       .signers([investor])
-  //       .rpc();
+    // Attempt to invest as the whitelisted investor
+    try {
+      await program.methods
+        .investInPool(new anchor.BN(500))
+        .accounts({
+          pool: poolKey,
+          treasury: treasury.publicKey,
+          investor: investor.publicKey,
+          whitelistEntry: whitelistEntryKey, // Include this if necessary for the logic
+          systemProgram: anchor.web3.SystemProgram.programId,
+        })
+        .signers([investor])
+        .rpc();
   
-  //     assert.fail("Investment should not be allowed in CLOSED state.");
-  //   } catch (error) {
-  //     // Expected failure, assert based on specific error if possible
-  //     assert.include(error.message, "The operation was rejected.", "Investment rejected as expected.");
-  //   }
-  // });
+      assert.fail("Investment should not be allowed in CLOSED state.");
+    } catch (error) {
+      // Expected failure, assert based on specific error if possible
+      assert.include(error.message, "The operation was rejected.", "Investment rejected as expected.");
+    }
+  });
 
 
   it("Allows only whitelisted investors during WHITELISTED_ONLY state", async () => {
