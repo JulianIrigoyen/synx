@@ -54,3 +54,5 @@ version = "1.17.17"
 
 name = "ahash"
 version = "0.8.5"
+
+https://stackoverflow.com/questions/71842787/next-js-typescript-error-you-do-not-have-the-required-packages-installed

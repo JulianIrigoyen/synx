@@ -4,7 +4,6 @@ export * from './badge';
 export * from './button';
 export * from './checkbox';
 export * from './dialog';
-export * from './dropdown';
 export * from './fieldset';
 export * from './input';
 export * from './link';

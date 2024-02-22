@@ -1,12 +1,4 @@
-import {
-  Description as HeadlessDescription,
-  Dialog as HeadlessDialog,
-  DialogPanel as HeadlessDialogPanel,
-  DialogTitle as HeadlessDialogTitle,
-  Transition as HeadlessTransition,
-  TransitionChild as HeadlessTransitionChild,
-  type DialogProps as HeadlessDialogProps,
-} from '@headlessui/react'
+import * as react from '@headlessui/react'
 import clsx from 'clsx'
 import type React from 'react'
 import { Fragment } from 'react'
@@ -31,11 +23,11 @@ export function Alert({
   className,
   children,
   ...props
-}: { size?: keyof typeof sizes; children: React.ReactNode } & HeadlessDialogProps) {
+}: { size?: keyof typeof sizes; children: React.ReactNode } & react.DialogProps) {
   return (
-    <HeadlessTransition appear as={Fragment} show={open} {...props}>
-      <HeadlessDialog onClose={onClose}>
-        <HeadlessTransitionChild
+    <react.Transition appear as={Fragment} show={open} {...props}>
+      <react.Dialog onClose={onClose}>
+        <react.Transition
           as={Fragment}
           enter="ease-out duration-100"
           enterFrom="opacity-0"
@@ -45,9 +37,9 @@ export function Alert({
           leaveTo="opacity-0"
         >
           <div className="fixed inset-0 flex w-screen justify-center overflow-y-auto bg-zinc-950/15 px-2 py-2 focus:outline-0 sm:px-6 sm:py-8 lg:px-8 lg:py-16 dark:bg-zinc-950/50" />
-        </HeadlessTransitionChild>
+        </react.Transition>
 
-        <HeadlessTransitionChild
+        <react.Transition
           className="fixed inset-0 w-screen overflow-y-auto pt-6 sm:pt-0"
           enter="ease-out duration-100"
           enterFrom="opacity-0"
@@ -57,8 +49,8 @@ export function Alert({
           leaveTo="opacity-0"
         >
           <div className="grid min-h-full grid-rows-[1fr_auto_1fr] justify-items-center p-8 sm:grid-rows-[1fr_auto_3fr] sm:p-4">
-            <HeadlessTransitionChild
-              as={HeadlessDialogPanel}
+            <react.Transition
+              as={react.DialogPanel}
               className={clsx(
                 className,
                 sizes[size],
@@ -72,17 +64,17 @@ export function Alert({
               leaveTo="scale-100"
             >
               {children}
-            </HeadlessTransitionChild>
+            </react.Transition>
           </div>
-        </HeadlessTransitionChild>
-      </HeadlessDialog>
-    </HeadlessTransition>
+        </react.Transition>
+      </react.Dialog>
+    </react.Transition>
   )
 }
 
 export function AlertTitle({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   return (
-    <HeadlessDialogTitle
+    <react.DialogTitle
       {...props}
       className={clsx(
         className,
@@ -94,7 +86,7 @@ export function AlertTitle({ className, ...props }: React.ComponentPropsWithoutR
 
 export function AlertDescription({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
   return (
-    <HeadlessDescription
+    <react.Description
       as={Text}
       {...props}
       className={clsx(className, 'mt-2 text-pretty text-center sm:text-left')}

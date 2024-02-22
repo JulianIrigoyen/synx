@@ -6,7 +6,7 @@ import Image from "next/image";
 export const AppBar: FC = () => {
   return (
     <div className={styles.AppHeader}>
-      <Image src="/iSynX0nobg.png" height={100} width={100} />
+      <Image src="/iSynX0nobg.png" height={100} width={100} alt={"SynXLogo"} />
       <span>SynX - RWA Investment Pools</span>
       <WalletMultiButton />
     </div>

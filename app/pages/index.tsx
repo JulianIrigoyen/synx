@@ -8,6 +8,7 @@ import { CreateTokenAccountForm } from "../components/CreateTokenAccount";
 import { CreateMintForm } from "../components/CreateMint";
 import { CreateInvestmentPoolButton } from "../components/CreateInvestmentPool";
 import Head from "next/head";
+import WhitelistInvestorComponent from "../components/WhitelistInvestor";
 
 const Home: NextPage = (props) => {
   return (
@@ -23,6 +24,7 @@ const Home: NextPage = (props) => {
           {/* <CreateMintForm /> */}
           {/* <CreateTokenAccountForm /> */}
           <CreateInvestmentPoolButton />
+          <WhitelistInvestorComponent program={undefined} poolKey={undefined} />
           {/* <MintToForm /> */}
         </div>
       </WalletContextProvider>
