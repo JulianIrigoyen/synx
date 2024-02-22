@@ -34,8 +34,11 @@ a secure, fast, decentralized marketplace.
 
      * Run yarn build && yarn dev to start the application. 
 
+## Engagement
 
-## Versions
+- Nice to have: being whitelested to token pools becomes a privilege, an asset. Something scarce that people want. This, oriented to social media, with users liking and sharing profitable decentralized investments. 
+
+## Versions (come to this if you are having problems with your local environment)
 
 [cargo] edition = "2021"
 
