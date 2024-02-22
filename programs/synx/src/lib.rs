@@ -49,6 +49,9 @@ const EXECUTED: u8 = 1 << 3;
     ! The signer account is intended to manage or hold assets for the pool. By using its public key as part of the seeds for generating the pool account's PDA, it's intricately linked to the pool, providing a way to enforce specific behaviors or permissions regarding how the pool interacts with its treasury.
     ! system_program referes to the Solana System Program, which is responsible for fundamental blockchain operations like creating accounts. It's included in the transaction to facilitate the creation of the pool account.
  */
+
+
+ /// Create investment pool
 #[derive(Accounts)]
 pub struct CreatePool<'info> {
     #[account(
@@ -79,14 +82,7 @@ pub fn run_create_pool(ctx: Context<CreatePool>, max_investment: u64, min_invest
     Ok(())
 }
 
-
-fn find_whitelist_entry_pda(pool: &Pubkey, investor: &Pubkey, program_id: &Pubkey) -> (Pubkey, u8) {
-    Pubkey::find_program_address(
-        &[b"WHITELIST", pool.as_ref(), investor.as_ref()],
-        program_id
-    )
-}
-
+/// Whitelist Investor
 #[derive(Accounts)]
 pub struct WhitelistInvestor<'info> {
     #[account(
@@ -131,6 +127,28 @@ pub fn run_whitelist_investor(ctx: Context<WhitelistInvestor>, investor: Pubkey,
      Ok(())
 }
 
+
+/// Pool instructions
+
+#[derive(Accounts)]
+pub struct TransitionPoolState<'info> {
+    #[account(mut, has_one = pool_master)]
+    pub pool: Account<'info, Pool>,
+    pub pool_master: Signer<'info>,
+}
+pub fn run_transition_pool_state(ctx: Context<TransitionPoolState>, new_state: u8) -> Result<()> {
+    let pool = &mut ctx.accounts.pool;
+    // Ensure only the pool master can execute this instruction
+    require_keys_eq!(pool.pool_master, ctx.accounts.pool_master.key(), SynxError::UnauthorizedPoolMaster);
+
+    // Update the state_flags to the new state
+    pool.state_flags = new_state;
+
+    msg!("Pool state transitioned to {}", new_state);
+    Ok(())
+}
+
+
 #[derive(Accounts)]
 pub struct InvestInPool<'info> {
     #[account(mut)]
@@ -149,6 +167,12 @@ pub mod synx {
 
     pub fn create_pool(ctx: Context<CreatePool>, max_investment: u64, min_investment: u64, bump: u8) -> Result<()> {
         run_create_pool(ctx, max_investment, min_investment, bump)?;
+        sol_log_compute_units();
+        Ok(())
+    }
+
+    pub fn transition_pool_state(ctx: Context<TransitionPoolState>, new_state: u8) -> Result<()> {
+        run_transition_pool_state(ctx,new_state)?;
         sol_log_compute_units();
         Ok(())
     }
