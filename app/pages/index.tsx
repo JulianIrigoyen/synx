@@ -8,6 +8,9 @@ import { CreateTokenAccountForm } from "../components/CreateTokenAccount";
 import { CreateMintForm } from "../components/CreateMint";
 import { CreateInvestmentPoolButton } from "../components/CreateInvestmentPool";
 import Head from "next/head";
+import WhitelistInvestorComponent from "../components/WhitelistInvestor";
+import UserInfoComponent from "../components/UserInfo";
+import { Web3AuthProvider } from "../components/Web3AuthProvider";
 
 const Home: NextPage = (props) => {
   return (
@@ -17,15 +20,20 @@ const Home: NextPage = (props) => {
         <meta name="description" content="SynX RWAS" />
       </Head>
       <WalletContextProvider>
+      <Web3AuthProvider>
         <AppBar />
         <div className={styles.AppBody}>
           <BalanceDisplay />
+          {/* <UserInfoComponent /> */}
           {/* <CreateMintForm /> */}
           {/* <CreateTokenAccountForm /> */}
           <CreateInvestmentPoolButton />
+          <WhitelistInvestorComponent program={undefined} poolKey={undefined} />
           {/* <MintToForm /> */}
         </div>
+        </Web3AuthProvider>
       </WalletContextProvider>
+
     </div>
   );
 };

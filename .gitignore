@@ -6,3 +6,12 @@ target
 node_modules
 test-ledger
 .yarn
+ideas.txt
+
+app/node_modules
+app/.next/*
+.vscode
+yarn.lock
+*.iml
+*.lock
+Cargo.lock
