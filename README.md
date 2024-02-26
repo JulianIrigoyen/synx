@@ -1,4 +1,4 @@
-# Backdrop Build SynX v0
+# Backdrop Build SynX v0 ::: https://backdropbuild.com/v3/
 
 This is the first proof of concept for the Land Tokenization (SynX) project. Our goal is to reduce entry barriers for
 profitable investments and to generate wealth in a decentralized manner, creating opportunities and value that are now
