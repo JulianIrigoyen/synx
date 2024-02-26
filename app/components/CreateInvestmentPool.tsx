@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import { useConnection, useAnchorWallet } from "@solana/wallet-adapter-react";
 import * as anchor from "@project-serum/anchor";
 import { AnchorProvider } from "@project-serum/anchor";
+
 import idl from "../public/idl/synx.json";
 import { Button } from "./catalyst/button";
 import {
@@ -22,10 +23,14 @@ import {
   Textarea,
 } from "./catalyst";
 import { Text as CatalystText } from "./catalyst/text";
+import { useWeb3Auth } from "./Web3AuthProvider";
 
 export const CreateInvestmentPoolButton: FC = () => {
   const { connection } = useConnection();
   const wallet = useAnchorWallet();
+  //todo decide how to hander wallets
+  const { loggedIn, web3AuthUser } = useWeb3Auth();
+
   const [latestPoolKey, setPoolKey] = useState("");
 
   const [pools, setPools] = useState([]); // Holds a collection of pools

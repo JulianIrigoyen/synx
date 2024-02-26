@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useWeb3Auth } from './Web3AuthProvider';
 
-const Web3AuthConnectButton = () => {
+const Web3AuthConnection = () => {
   const { login, logout, loggedIn, web3AuthUser } = useWeb3Auth();
 
     // Optional: React to changes in web3AuthUser, if there's any action to take
@@ -33,12 +33,14 @@ const Web3AuthConnectButton = () => {
                 className="h-8 w-8 rounded-full"
               />
               {web3AuthUser?.name || "User"}
-              {web3AuthUser?.walletAddress || "Wallet"}
-              {web3AuthUser?.walletIssuer || "Issuer"}
-              {web3AuthUser?.chain || "Chain"}
+             
               <ChevronDownIcon className="ml-2 h-5 w-5" aria-hidden="true" />
             </Menu.Button>
+
+            
+
           </div>
+          <Menu.Separator></Menu.Separator>
           <Transition
             as={Fragment}
             enter="transition ease-out duration-100"
@@ -58,7 +60,19 @@ const Web3AuthConnectButton = () => {
                         active ? 'bg-gray-100' : ''
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-700`}
                     >
-                      Your Profile
+                      Profile
+                    </button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() => {/* TODO: Open phantom / metamask */}}
+                      className={`${
+                        active ? 'bg-gray-100' : ''
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-700`}
+                    >
+                      {web3AuthUser?.walletAddress || "Wallet@Issuer"}
                     </button>
                   )}
                 </Menu.Item>
@@ -83,4 +97,4 @@ const Web3AuthConnectButton = () => {
   );
 };
 
-export default Web3AuthConnectButton;
+export default Web3AuthConnection;

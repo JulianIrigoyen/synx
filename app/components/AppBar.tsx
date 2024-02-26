@@ -2,7 +2,7 @@ import { FC } from "react";
 import styles from "../styles/Home.module.css";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import Image from "next/image";
-import Web3AuthConnectButton from "./Web3AuthConnect";
+import Web3AuthConnection from "./Web3AuthConnection";
 import { Badge, BadgeButton } from "./catalyst/badge";
 import { Text as CatalystText } from "./catalyst/text";
 
@@ -176,8 +176,8 @@ export const AppBar: FC = () => {
 
         {/* Wallet and Web3Auth Buttons */}
         <div className="hidden lg:flex items-center justify-end space-x-5">
-          <WalletMultiButton />
-          <Web3AuthConnectButton />
+          {/* <WalletMultiButton /> */}
+          <Web3AuthConnection />
           </div>
       </nav>
 
