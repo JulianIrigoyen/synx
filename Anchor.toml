@@ -4,8 +4,9 @@
 seeds = false
 skip-lint = false
 
-[programs.localnet]
-synx = "GiWGrEfwScYrTXoTECQR2HbRyCwn5Vu6K1tTbCSXm4x2"
+[programs.localnet] #1111111111111111111111111111111111111111 placeholder
+synx = "GPigmxNjTAwbz3GyMDgniM4jh55DoBca2QgKRHAL5EL6"
+synx-escrow = "7fTKPCxy8EMRft33nPVFWxbGK8qn6wDSWXJjoY3jpMo1"
 
 [registry]
 url = "https://api.apr.dev"

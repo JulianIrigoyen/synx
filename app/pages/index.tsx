@@ -24,7 +24,7 @@ const Home: NextPage = (props) => {
         <AppBar />
         <div className={styles.AppBody}>
           <BalanceDisplay />
-          <UserInfoComponent />
+          {/* <UserInfoComponent /> */}
           {/* <CreateMintForm /> */}
           {/* <CreateTokenAccountForm /> */}
           <CreateInvestmentPoolButton />
